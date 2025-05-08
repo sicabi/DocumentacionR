@@ -1,0 +1,48 @@
+project:
+  type: default
+  output-dir: outputs
+
+
+format:
+  html:
+    css: inputs/styles/style.css
+    toc: true
+    toc-location: right
+    html-math-method: mathml
+    code-copy: true
+    code-tools: false
+    embed-resources: false
+  pdf:
+    documentclass: article
+    title: ""
+    subtitle: ""
+    pagestyle: plain
+    page-layout: article
+    geometry:
+      - top=30mm
+      - bottom=30mm
+      - left=35mm
+      - right=35mm
+      - heightrounded
+    fontsize: 11.15pt
+    linestrech: 1.1
+    tbl-colwidths: [20,15,65]
+    tbl-cap-location: top
+    include-in-header:
+      - file: inputs/styles/header.tex
+    include-before-body: inputs/styles/alignment.tex
+    include-after-body: inputs/styles/alignment_end.tex
+lang: es
+number-sections: true
+bibliography: inputs/references/references.bib
+mainfont: "Liberation Sans"
+monofont: "Liberation Mono"
+mathfont: "Liberation Serif"
+date: 2025-05-02
+crossref:
+  title-delim: "."
+
+execution:
+  cache: false
+  keep-tex: false
+  keep-md: false

@@ -1,0 +1,74 @@
+---
+title: "\\<Título de la página de ayuda\\>"
+subtitle: "<tema en inglés> {<paquete>}: <tema en español>     \n                          Documentación de R, <versión de R>"
+lang: es
+format: 
+  html:
+    documentclass: article
+    pagestyle: plain
+    papersize: letter
+    hyperrefoptions:
+      - colorlinks=true
+      - linkcolor=gray
+      - filecolor=blue
+      - urlcolor=blue
+    indent: false
+    toc: true
+    toc-location: left
+    toc-title: "Contenido"
+    number-sections: true
+    mainfont: "Avenir"
+    monofont: "Andale Mono"
+    linkcolor: blue
+    fontsize: 1.4em
+    cap-location: top
+    page-layout: article
+    code-copy: true
+    code-tools: false
+    tbl-colwidths: [20,15,65]
+    tbl-cap-location: top
+    geometry:
+      - top=30mm
+      - bottom=30mm
+      - left=35mm
+      - right=35mm
+      - heightrounded
+    theme:
+      light: pandoc
+      dark: darkly
+editor: visual
+---
+
+## Descripción
+
+## Argumentos
+
+## Forma de uso o sintaxis
+
+| Argumento | Valor esperado | Propósito |
+|-----------|----------------|-----------|
+|           |                |           |
+|           |                |           |
+|           |                |           |
+
+: \<Tabla de argumentos de las funciones descritas\>
+
+## Detalles
+
+## Valor devuelto
+
+## \<Sección adicional\>
+
+## Nota
+
+## Referencias
+
+## También véase
+
+## Ejemplos
+
+## Código fuente
+
+------------------------------------------------------------------------
+
+\[Paquete `{}` version \<versión de R\> [Índice](%7Bbase%7D "{base}")\]

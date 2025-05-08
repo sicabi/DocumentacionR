@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Funciones para crear o verificar vectores de tipo entero</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="Integer_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Integer_files/libs/quarto-html/quarto.js"></script>
+<script src="Integer_files/libs/quarto-html/popper.min.js"></script>
+<script src="Integer_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Integer_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Integer_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Integer_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Integer_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Integer_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Integer_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+<link rel="stylesheet" href="inputs/styles/style.css">
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Tabla de contenidos</h2>
+   
+  <ul>
+  <li><a href="#descripción" id="toc-descripción" class="nav-link active" data-scroll-target="#descripción"><span class="header-section-number">1</span> Descripción</a></li>
+  <li><a href="#forma-de-uso-o-sintaxis" id="toc-forma-de-uso-o-sintaxis" class="nav-link" data-scroll-target="#forma-de-uso-o-sintaxis"><span class="header-section-number">2</span> Forma de uso o sintaxis</a></li>
+  <li><a href="#argumentos" id="toc-argumentos" class="nav-link" data-scroll-target="#argumentos"><span class="header-section-number">3</span> Argumentos</a></li>
+  <li><a href="#detalles" id="toc-detalles" class="nav-link" data-scroll-target="#detalles"><span class="header-section-number">4</span> Detalles</a></li>
+  <li><a href="#valor-devuelto" id="toc-valor-devuelto" class="nav-link" data-scroll-target="#valor-devuelto"><span class="header-section-number">5</span> Valor devuelto</a></li>
+  <li><a href="#el-almacenamiento-de-números-enteros" id="toc-el-almacenamiento-de-números-enteros" class="nav-link" data-scroll-target="#el-almacenamiento-de-números-enteros"><span class="header-section-number">6</span> El almacenamiento de números enteros</a></li>
+  <li><a href="#notas" id="toc-notas" class="nav-link" data-scroll-target="#notas"><span class="header-section-number">7</span> Notas</a>
+  <ul class="collapse">
+  <li><a href="#sobre-la-verificación-matemática-de-los-números-enteros" id="toc-sobre-la-verificación-matemática-de-los-números-enteros" class="nav-link" data-scroll-target="#sobre-la-verificación-matemática-de-los-números-enteros"><span class="header-section-number">7.1</span> Sobre la verificación matemática de los números enteros</a></li>
+  <li><a href="#sobre-las-denominaciones-de-los-tipos-modos-y-clases-numéricas" id="toc-sobre-las-denominaciones-de-los-tipos-modos-y-clases-numéricas" class="nav-link" data-scroll-target="#sobre-las-denominaciones-de-los-tipos-modos-y-clases-numéricas"><span class="header-section-number">7.2</span> Sobre las denominaciones de los tipos, modos y clases numéricas</a></li>
+  </ul></li>
+  <li><a href="#también-véase" id="toc-también-véase" class="nav-link" data-scroll-target="#también-véase"><span class="header-section-number">8</span> También véase</a></li>
+  <li><a href="#ejemplos" id="toc-ejemplos" class="nav-link" data-scroll-target="#ejemplos"><span class="header-section-number">9</span> Ejemplos</a></li>
+  <li><a href="#código-fuente" id="toc-código-fuente" class="nav-link" data-scroll-target="#código-fuente"><span class="header-section-number">10</span> Código fuente</a>
+  <ul class="collapse">
+  <li><a href="#integer" id="toc-integer" class="nav-link" data-scroll-target="#integer"><span class="header-section-number">10.1</span> <code>integer()</code></a></li>
+  <li><a href="#as.integer" id="toc-as.integer" class="nav-link" data-scroll-target="#as.integer"><span class="header-section-number">10.2</span> <code>as.integer()</code></a></li>
+  <li><a href="#is.integer" id="toc-is.integer" class="nav-link" data-scroll-target="#is.integer"><span class="header-section-number">10.3</span> <code>is.integer()</code></a></li>
+  </ul></li>
+  <li><a href="#referencias" id="toc-referencias" class="nav-link" data-scroll-target="#referencias"><span class="header-section-number">11</span> Referencias</a></li>
+  <li><a href="#traduccion" id="toc-traduccion" class="nav-link" data-scroll-target="#traduccion"><span class="header-section-number">12</span> Sobre esta traducción</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Otros formatos</h2><ul><li><a href="Integer.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Funciones para crear o verificar vectores de tipo <em>entero</em></h1>
+<p class="subtitle lead">Documentación de R 4.3.0</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Fecha de publicación</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">2 de mayo de 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="descripción" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="descripción"><span class="header-section-number">1</span> Descripción</h2>
+<p>La función <code>integer()</code> creará un vector de <a href="typeof%20%7Bbase%7D" title="typeof {base}">tipo</a> <em>entero</em> (<code>"integer"</code>), que podrá almacenar un subconjunto amplio aunque limitado de los números enteros positivos y negativos.</p>
+<p>La función <code>as.integer()</code> intentará convertir en un vector de tipo <em>entero</em> a cualquier tipo de objeto. Por su parte, la función <code>is.integer()</code> verificará si un objeto es de <a href="typeof%20%7Bbase%7D" title="typeof {base}">tipo</a> <em>entero</em>.</p>
+</section>
+<section id="forma-de-uso-o-sintaxis" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="forma-de-uso-o-sintaxis"><span class="header-section-number">2</span> Forma de uso o sintaxis</h2>
+<div class="sourceCode" id="cb1" data-eval="FALSE"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">integer</span>(<span class="at">length =</span> <span class="dv">0</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">as.integer</span>(x, ...)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">is.integer</span>(x)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="argumentos" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="argumentos"><span class="header-section-number">3</span> Argumentos</h2>
+<table class="caption-top table">
+<caption>Argumentos para las funciones de creación y verificación de vectores <em>enteros</em></caption>
+<thead>
+<tr class="header">
+<th>Argumento</th>
+<th>Valor esperado</th>
+<th>Propósito</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p><code>length=</code></p>
+<p><sub><em>longitud</em></sub></p></td>
+<td>Un valor entero mayor o igual a cero</td>
+<td>Determina la longitud deseada del vector, es decir, el número de elementos que almacenará. El argumento de longitud aceptará números enteros no negativos. Los valores continuos o con decimales (tipo <a href="double%20%7Bbase%7D" title="double {base}">doble</a>) serán convertidos a enteros y la aportación de más de un valor devolverá un mensaje de error.</td>
+</tr>
+<tr class="even">
+<td><code>x=</code></td>
+<td>Un objeto</td>
+<td>Un objeto para ser coaccionado o verificado como un vector de tipo <em>entero</em>.</td>
+</tr>
+<tr class="odd">
+<td><code>...</code></td>
+<td>Otros argumentos</td>
+<td>Otros argumentos que serán pasados desde o hacia otras funciones.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="detalles" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="detalles"><span class="header-section-number">4</span> Detalles</h2>
+<p>Un vector <em>entero</em> es una estructura fundamental de <strong>R</strong> destinada al almacenamiento exclusivo de datos de tipo <em>entero</em> en celdas contiguas, así como a la realización de operaciones individuales o en paralelo con los elementos de esta celdas (<span class="citation" data-cites="becker1988">Becker, Chambers, y Wilks (<a href="#ref-becker1988" role="doc-biblioref">1988</a>)</span>). Los vectores <em>enteros</em> subsisten como un legado de los lenguajes <em>C</em> y <em>Fortran</em>, los cuales forman parte del código interno de <strong>R</strong>. Estos lenguajes requieren todavía de este tipo de almacenamiento para algunas operaciones especiales.</p>
+<p>El tipo de dato <em>entero</em> es una categorización de valores que permite representar y realizar operaciones con un subconjunto de los números enteros con signo del sistema de numeración decimal, es decir, de los enteros positivos y negativos. Este subconjunto es de rango amplio aunque limitado a 32 <em>bits</em>. El tipo <em>entero</em> permite almacenar de manera exacta los números sin fracciones o marca decimal —el punto ( . ) o la coma ( , ) dependiendo del país.</p>
+<p>Específicamente, <strong>R</strong> define al tipo <em>entero</em> como un <a href="typeof%20%7Bbase%7D" title="typeof {base}">tipo de almacenamiento interno</a> de carácter exacto que podrá contener cualquier valor de un conjunto de números con signo sin marca decimal en un rango de 32 dígitos binarios (<em>bits</em>). Este rango equivale a la posibilidad de almacenar <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mn>32</mn></msup><annotation encoding="application/x-tex">2^{32}</annotation></semantics></math> valores enteros distintos.</p>
+<p>Debido a que, internamente, los valores posibles por dígito son dos (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math> y <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>), la base del exponente será el número dos (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>). Por su parte, el valor del exponente es equivalente al número de dígitos disponibles para almacenamiento, en este caso, treinta y dos (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>32</mn><annotation encoding="application/x-tex">32</annotation></semantics></math>). La elevación de la base a este exponente permite obtener el número total de combinaciones disponibles para representar valores enteros en un rango de 32 <em>bits</em>.</p>
+<p>No obstante, ya que <strong>R</strong> define al tipo <em>entero</em> como uno capaz de almacenar valores con signo, a nivel interno se destinará uno de los 32 <em>bits</em> a almacenar el valor del signo del número, con un cero (<code>0)</code> para valores positivos y un uno (<code>1)</code> para negativos. Por ello, el valor del exponente se reducirá en una unidad (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>32</mn><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">32-1</annotation></semantics></math>). Del mismo modo, dado que el intervalo de valores almacenables atraviesa el cero en la recta numérica, se deberá adicionar y sustraer una unidad en los límites del intervalo de almacenamiento. En consecuencia, el rango de enteros representables irá de <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><msup><mn>2</mn><mn>31</mn></msup><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">-2^{31}+1</annotation></semantics></math> a <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>31</mn></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2^{31}-1</annotation></semantics></math> (es decir, aproximadamente de <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>∓</mi><mn>2</mn><mo>×</mo><msup><mn>10</mn><mn>9</mn></msup></mrow><annotation encoding="application/x-tex">\mp2\times10^9</annotation></semantics></math> ).</p>
+<p>De este modo, las funciones básicas para crear vectores <em>enteros</em> son <code>integer()</code>, <code>as.integer()</code> y <a href="c%20%7Bbase%7D" title="c {base}"><code>c()</code></a><em>.</em> Por su parte, la función <code>is.integer()</code> se utilizará para comprobar si un objeto es de <a href="typeof%20%7Bbase%7D" title="typeof {base}">tipo</a> <em>entero</em> (<code>"integer")</code>. En particular, <code>as.integer()</code>, <code>is.integer()</code> y <a href="c%20%7Bbase%7D" title="c {base}"><code>c()</code></a> son funciones <a href="Primitive%20%7Bbase%7D" title="Primitive {base}">primitivas</a>, por lo que su código fuente está implementado de manera interna y no será visible directamente por la usuaria. Para más información sobre la forma de utilización de las funciones mencionadas, puedes consultar la sección <em>Valor devuelto</em> en esta misma página de ayuda.</p>
+<p>Como objetos, los vectores <em>enteros</em> son un <a href="vector%20%7Bbase%7D" title="vector {base}">tipo de vector</a> atómico o fundamental de <strong>R</strong>, por lo que no podrán convertirse en objetos más simples ni contener elementos que no sean del mismo tipo. Los <a href="vector%20%7Bbase%7D" title="vector {base}">vectores atómicos</a> están definidos a nivel interno por su <a href="typeof%20%7Bbase%7D">tipo de almacenamiento</a>. El tipo de almacenamiento determina el tipo de vector y las operaciones que le son aplicables.</p>
+<p>El <a href="typeof%20%7Bbase%7D" title="typeof {base}">tipo interno de almacenamiento</a> de un vector <em>entero</em> tendrá asignada como atributo la etiqueta inglesa <em>entero</em> (<code>"integer")</code> y su <a href="mode%20%7Bbase%7D">modo de almacenamiento</a> tendrá asociada como atributo la etiqueta inglesa <em>numérico</em> (<code>"numeric")</code>. Además, los vectores <em>enteros</em> son una <a href="class%20%7Bbase%7D" title="class {base}">clase de objeto</a> del lenguaje, por lo que también podrán extender sus propiedades a nuevos objetos.</p>
+<p>Los vectores de tipo <em>entero</em> (<code>"integer"</code>) podrán almacenar valores enteros en forma más compacta que otros <a href="numeric%20%7Bbase%7D" title="numeric {base}">tipos de almacenamiento numérico</a>, como el almacenamiento <a href="double%20%7Bbase%7D" title="double {base}"><em>doble</em></a> (<code>"double"</code>), que puede guardar igualmente enteros de manera exacta en un rango mucho más amplio. Sin embargo, las capacidades actuales de los ordenadores vuelven imperceptibles, en la práctica, estas ganancias en eficiencia derivadas del uso del tipo de datos <em>entero</em>.</p>
+<p>Para cada tipo de <a href="vector%20%7Bbase%7D" title="vector {base}">vector</a> atómico, salvo para los vectores <a href="raw%20%7Bbase%7D" title="raw {base}">crudos</a> (<code>"raw"</code>), existe un tipo propio de <a href="NA%20%7Bbase%7D" title="NA {base}">valor no disponible</a> <code>NA</code>. Así, al tipo <em>entero</em> le corresponderá el valor no disponible <code>NA_integer_</code>. Sin embargo, los valores no disponibles de los vectores <em>enteros</em> serán mostrados en pantalla solamente con los caracteres <code>NA</code>.</p>
+<p>Si deseas asegurarte de que los vectores <em>enteros</em> reciban sólo valores no disponibles de tipo <em>entero</em>, puedes utilizar el valor <code>NA_integer_</code> (en vez de la forma más simple <code>NA</code>) en las operaciones de <a href="assign%20%7Bbase%7D" title="assign {base}">asignación</a>. Para más información puedes consultar más adelante la sección <em>Ejemplos</em>, así como la página de ayuda de los <a href="NA%20%7Bbase%7D" title="NA {base}">valores no disponibles</a>.</p>
+</section>
+<section id="valor-devuelto" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="valor-devuelto"><span class="header-section-number">5</span> Valor devuelto</h2>
+<p>Cualquier cifra tecleada sin comillas ( <code>""</code> ) en la consola de <strong>R</strong> será devuelta como un número por el lenguaje. Es decir, <strong>R</strong> podrá identificar <em>literales</em> numéricos en el código fuente y los devolverá como valores numéricos constantes. Sin embargo, para devolver directamente un valor de tipo <em>entero</em> tendremos que añadir, sin mediar espacio, el sufijo <code>L</code> (proveniente del tipo <code>LONG INTEGER</code> de <em>C</em>) a todos los literales enteros tecleados.</p>
+<p>Por ejemplo, para crear el valor entero <code>1</code> deberemos usar el sufijo <code>L</code> para calificarlo como un dato <em>entero</em>. Entonces, el literal numérico <code>1L</code> tecleado en la consola será devuelto como la constante entera <code>1</code> y tendrá asociada internamente la etiqueta <code>"integer"</code> . En cambio, si sólo tecleamos el literal numérico <code>1</code>, éste será devuelto como un valor de tipo <em>doble</em>.</p>
+<p><strong>R</strong> reconocerá literales numéricos en el sistema de numeración decimal y hexadecimal. Los valores en base decimal se escribirán literalmente, mientras que los valores en base hexadecimal deberán estar acompañados del prefijo <code>0x</code> o <code>0X</code> para indicar que se trata de números en esa base. Particularmente, si queremos caracterizar a un literal numérico de cualquier base como un <em>entero</em> tendremos que añadir siempre el sufijo <code>L</code>. Por ejemplo, la cifra <code>0x10L</code> devolverá el valor entero <code>16</code> a partir de la representación hexadecimal ingresada. Por otro lado, la cifra en notación científica <code>1e3L</code> devolverá el valor entero <code>1000</code> y será equivalente a haber ingresado el literal numérico <code>1000L</code>.</p>
+<p>El acceso a las celdas o los elementos de un vector <em>entero</em> se realizará por medio de las operaciones de <a href="Extract%20%7Bbase%7D" title="Extract {base}">indización</a> ( <code>[ ]</code> )de sus elementos tal como, por ejemplo: <code>un_vector[i]</code>; en donde <code>i</code> será el número índice del elemento que se desea <a href="Extract%20%7Bbase%7D">extraer</a> o <a href="assign%20%7Bbase%7D" title="assign {base}">almacenar</a>.</p>
+<p>La función <code>integer()</code> creará un vector <em>entero</em> con el número de elementos especificado en el argumento de longitud, <code>length=</code>. Al momento de su creación, cada elemento del vector será igual a cero (<code>0L</code>). Luego, se podrán <a href="assignOps%20%7Bbase%7D" title="assignOps {base}">asignar</a> valores enteros positivos o negativos, así como <a href="NA%20%7Bbase%7D" title="NA {base}">valores no disponibles</a> (<code>NA</code>), al vector recientemente creado.</p>
+<p>La función <code>as.integer()</code> intentará coaccionar al objeto referido en el argumento <code>x=</code> al tipo <em>entero</em> y lo devolverá como un vector de este tipo. Si la coacción no ha sido exitosa, el resultado será un valor no disponible (<code>NA</code>).</p>
+<p>Cuando se intente coaccionar un valor al tipo <em>entero</em>, o se ingrese un literal entero en la consola, y éste sea mayor o menor a los límites del intervalo de almacenamiento, se devolverá un <a href="NA%20%7Bbase%7D" title="NA {base}">valor no disponible</a> (<code>NA</code>). Este comportamiento es diferente al de <em>S</em>, que devolvía un valor del mismo signo igual al límite del intervalo de almacenamiento.</p>
+<p>Cuando <code>as.integer()</code> reciba valores con números reales, las fracciones decimales de estos valores serán truncados hacia el cero siempre y cuando se encuentren dentro del intervalo de almacenamiento entero. Esto significa que <code>as.integer(x)</code> funcionará igual que <code>trunc(x)</code> en estos casos. Del mismo modo, las partes imaginarias de los valores de <a href="complex%20%7Bbase%7D" title="complex {base}">números complejos</a> se descartarán con una advertencia.</p>
+<p><code>as.integer()</code> podrá convertir en valores enteros a aquellas cadenas de caracteres (es decir, literales entre comillas) que contengan representaciones de números del sistema decimal o hexadecimal entre espacios en blanco iniciales o finales. No obstante, cada cadena de caracteres deberá contener una sola cifra, sin espacios intercalados, de lo contrario esos elementos serán coaccionados en valores no disponibles (<code>NA</code>). Algunas plataformas de sistema operativo podrían aceptar la coacción de cadenas de caracteres que representen números en otros sistemas de numeración diferentes al decimal o al hexadecimal, como el binario o el octal.</p>
+<p><code>as.integer()</code> eliminará los atributos, incluidos los nombres, de los objetos coaccionados, tal como lo hace la función <a href="vector%20%7Bbase%7D" title="vector {base}"><code>as.vector()</code></a>. Para asegurarte de que un objeto <em><code>x</code></em> permanezca con el tipo <em>entero</em> sin perder sus atributos, podrás asignar a un vector la etiqueta del tipo <em>entero</em> (<code>"integer"</code>) con la función <code>storage.mode()</code>, por ejemplo, como en: <code>storage.mode(x) &lt;- "integer"</code>. Esta forma de coacción hacia el tipo <em>entero</em> tiene la ventaja de modificar el <a href="mode%20%7Bbase%7D" title="mode {base}">tipo de almacenamiento</a> sin eliminar los atributos del objeto,</p>
+<p>La función <a href="c%20%7Bbase%7D" title="c {base}"><code>c()</code></a> devolverá un vector <em>entero</em> si se utiliza para combinar valores enteros que estén separados por comas, siempre que al final de cada valor numérico se añada, sin mediar espacio, la letra ele mayúscula (<code>L</code>), por ejemplo: <code>c(1L, 2L, 3L)</code>. El resultado de la combinación de elementos enteros creará un vector de tipo <em>entero</em> si ninguno de los valores combinados tiene valores decimales. Para mayor información sobre la combinación de elementos para crear vectores de un determinado tipo puedes ver la página de ayuda de la función <a href="c%20%7Bbase%7D" title="c {base}"><code>c()</code></a>.</p>
+<p>La función <code>is.integer()</code> devolverá el <a href="logical%20%7Bbase%7D" title="logical {base}">valor lógico</a> verdadero (<code>TRUE</code>) o falso (<code>FALSE</code>) dependiendo de si el objeto referido en el argumento <code>x=</code> es de tipo <em>entero</em>, es decir, de si el vector tiene asociada internamente la etiqueta <code>"integer"</code>. Toma en cuenta que esta función sólo verificará el <a href="typeof%20%7Bbase%7D" title="typeof {base}">tipo de almacenamiento específico</a> del vector, no si los objetos contenidos en él son, matemáticamente, números enteros; para más información puedes ver las secciones <em>Nota</em> y <em>Ejemplos</em> en esta página de ayuda. En el caso de los <a href="base%20%7Bfactor%7D" title="base {factor}">factores</a>, que asocian números enteros a valores categóricos, <code>is.integer()</code> devolverá el valor lógico falso (<code>FALSE</code>) al momento de verificar el tipo del objeto.</p>
+</section>
+<section id="el-almacenamiento-de-números-enteros" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="el-almacenamiento-de-números-enteros"><span class="header-section-number">6</span> El almacenamiento de números enteros</h2>
+<p>En computación, un tipo <em>de almacenamiento</em> o <em>de dato</em> es la categorización de un conjunto de valores y un conjunto de operaciones definidas para esos valores. Así, un tipo de almacenamiento caracteriza a un conjunto de objetos con la misma representación. De esta manera, el tipo de dato <em>entero</em>, llamado también <em>integral</em>, permite representar a un subconjunto de los números enteros (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ℤ</mi><annotation encoding="application/x-tex">\mathbb{Z}</annotation></semantics></math>) y realizar operaciones matemáticas con ellos.</p>
+<p>En términos coloquiales, los enteros son números que se representan sin la marca del separador de decimales, ya sea que la marca decimal utilizada sea el punto ( . ) o la coma ( , ), y pueden ser números tanto positivos como negativos incluyendo al cero (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>). En términos matemáticos, los números enteros se refieren al conjunto <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ℤ</mi><annotation encoding="application/x-tex">\mathbb{Z}</annotation></semantics></math> que comprende a los subconjuntos de los números naturales <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ℕ</mi><annotation encoding="application/x-tex">\mathbb{N}</annotation></semantics></math>, al número cero (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>) y a los números naturales con signo negativo <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mi>ℕ</mi></mrow><annotation encoding="application/x-tex">-\mathbb{N}</annotation></semantics></math>, tal que: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℤ</mi><mo>∋</mo><mo stretchy="false" form="prefix">{</mo><msubsup><mi>∞</mi><mi>ℕ</mi><mo>−</mo></msubsup><mo>,</mo><mi>.</mi><mi>.</mi><mi>.</mi><mo>,</mo><mi>−</mi><mn>3</mn><mo>,</mo><mi>−</mi><mn>2</mn><mo>,</mo><mi>−</mi><mn>1</mn><mo>,</mo><mn>0</mn><mo>,</mo><mi>+</mi><mn>1</mn><mo>,</mo><mi>+</mi><mn>2</mn><mo>,</mo><mi>+</mi><mn>3</mn><mo>,</mo><mi>.</mi><mi>.</mi><mi>.</mi><mo>,</mo><msubsup><mi>∞</mi><mi>ℕ</mi><mo>+</mo></msubsup><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\mathbb{Z}\ni\{\infty^-_{\mathbb{N}},...,-3,-2,-1,0,+1,+2,+3,...,\infty^+_{\mathbb{N}}\}</annotation></semantics></math>.</p>
+<p>De esta manera, el conjunto de los números enteros <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ℤ</mi><annotation encoding="application/x-tex">\mathbb{Z}</annotation></semantics></math> hereda las propiedades de los números naturales <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ℕ</mi><annotation encoding="application/x-tex">\mathbb{N}</annotation></semantics></math> con la adición de los subconjuntos que incluyen al cero (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>) y a los naturales negativos <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mi>ℕ</mi></mrow><annotation encoding="application/x-tex">-\mathbb{N}</annotation></semantics></math>. Las propiedades más importantes de los números naturales son: 1) entre un número natural <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math> y su sucesor <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">a+1</annotation></semantics></math> no existe ningún número natural, 2) entre dos números naturales no sucesivos siempre habrá un número finito de números naturales, 3) todo número natural después del número uno (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>) es precedido por otro número natural y 4) los números naturales son infinitos.</p>
+<p>El número entero más grande que podrá representarse en una computadora depende del tamaño de <em>agrupación del dato</em>. El tamaño de agrupación se refiere al número de dígitos binarios o <em>bits</em> usados para almacenar un número y es variable entre plataformas de sistema (32 o 64 bits, usualmente), lenguajes de programación y tipos de almacenamiento. Por este motivo, el subconjunto de enteros disponibles para ser representados también podrá variar en algunas ocasiones.</p>
+<p>Entonces, si el tamaño de agrupación para números enteros es de un número de dígitos o <em>bits</em> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>, los enteros en base decimal tendrán una representación interna de <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> dígitos binarios, los cuales podrán adoptar sólo uno de dos valores: cero (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>) o uno (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>). De esta forma, un número entero tendrá una representación binaria a nivel interno con <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> dígitos <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math> y <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n-1</annotation></semantics></math> posiciones contadas de derecha a izquierda a partir de cero: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msub><mi>.</mi><mi>.</mi><mi>.</mi><msub><mi>d</mi><mn>3</mn></msub><msub><mi>d</mi><mn>2</mn></msub><msub><mi>d</mi><mn>1</mn></msub><msub><mi>d</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">d_{n-1}...d_3d_2d_1d_0</annotation></semantics></math>.</p>
+<p>En caso de que los enteros puedan adoptar valores positivos y negativos, la posición <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n-1</annotation></semantics></math> correspondiente al dígito de extrema izquierda <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msub><annotation encoding="application/x-tex">d_{n-1}</annotation></semantics></math> se destinará a almacenar el valor del signo y será conocida como el <em>bit</em> o banderín de signo. Así, el número cero (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>) se usará para identificar a los números mayores o iguales a cero (es decir, los positivos), y el número uno (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>) para identificar a los números menores a cero (es decir, los negativos), y corresponderán al valor del signo positivo (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>+</mi><annotation encoding="application/x-tex">+</annotation></semantics></math>) y negativo (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>−</mi><annotation encoding="application/x-tex">-</annotation></semantics></math>) de los números en sistema decimal, respectivamente.</p>
+<p>Ya que el banderín de signo ocupará un dígito completo en la representación de valores en sistema binario, el número de posiciones disponibles efectivamente para almacenar a un entero será de <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n-1</annotation></semantics></math> dígitos binarios. En consecuencia, si se trata de enteros con signo, el rango de representación binaria de estos irá de <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><msup><mn>2</mn><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msup><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">-2^{n-1}+1</annotation></semantics></math> a <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2^{n-1}-1</annotation></semantics></math>. La adición y sustracción de una unidad en los límites del intervalo es consecuencia del conteo a partir de cero. Si, en cambio, el entero no tiene un digito o banderín de signo, el número de enteros representables será de <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mi>n</mi></msup><annotation encoding="application/x-tex">2^n</annotation></semantics></math> dígitos e irá, usualmente, de <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math> a <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>n</mi></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2^n-1</annotation></semantics></math>.</p>
+<p>Por ejemplo, cuando el tamaño de agrupación del dato sea de 32 bits, se podrán representar hasta <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mn>32</mn></msup><annotation encoding="application/x-tex">2^{32}</annotation></semantics></math> valores sin signo. Es decir, el tipo entero tendrá <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mspace width="0.167em"></mspace><mn>294</mn><mspace width="0.167em"></mspace><mn>967</mn><mspace width="0.167em"></mspace><mn>296</mn></mrow><annotation encoding="application/x-tex">4\,294\,967\,296</annotation></semantics></math> posiciones de almacenamiento. No obstante, si el tamaño de agrupación cuenta con un dígito destinado a representar al signo positivo o negativo, entonces el rango de enteros representables se dividirá en mitades e irá de <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><msup><mn>2</mn><mn>31</mn></msup><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">-2^{31}+1</annotation></semantics></math> a <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>+</mi><msup><mn>2</mn><mn>31</mn></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">+2^{31}-1</annotation></semantics></math>, o sea, de <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>2</mn><mspace width="0.167em"></mspace><mn>147</mn><mspace width="0.167em"></mspace><mn>483</mn><mspace width="0.167em"></mspace><mn>647</mn></mrow><annotation encoding="application/x-tex">-2\,147\,483\,647</annotation></semantics></math> a <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mspace width="0.167em"></mspace><mn>147</mn><mspace width="0.167em"></mspace><mn>483</mn><mspace width="0.167em"></mspace><mn>647</mn></mrow><annotation encoding="application/x-tex">2\,147\,483\,647</annotation></semantics></math>.</p>
+<p>Las diferencias entre el formato de almacenamiento <em>entero</em> y la representación en pantalla de las cifras segurá las reglas básicas de la conversión aritmética entre los sistemas de numeración decimal y binario. Así, la conversión aritmética de valores en base decimal a base binaria, y viceversa, seguirá un algoritmo estándar en el caso de los enteros positivos y uno especial, conocido en computación como el <em>complemento a dos</em>, en caso de los enteros negativos. A continuación se sintetiza el algoritmo para los cuatro casos posibles:</p>
+<ul>
+<li><p><strong>Conversión de enteros positivos en base decimal a base binaria.</strong> La conversión de un número entero mayor o igual a cero en base decimal <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mn>10</mn></msub><annotation encoding="application/x-tex">x_{10}</annotation></semantics></math> a su equivalente en base binaria <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mn>2</mn></msub><annotation encoding="application/x-tex">x_2</annotation></semantics></math> se obtendrá al concatenar cada residuo <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>r</mi><mn>1</mn></msub><mi>.</mi><mi>.</mi><mi>.</mi><msub><mi>r</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">r_1...r_n</annotation></semantics></math> obtenido de la sucesiva división del número decimal <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mn>10</mn></msub><annotation encoding="application/x-tex">x_{10}</annotation></semantics></math> y sus cocientes <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>q</mi><mn>1</mn></msub><mi>.</mi><mi>.</mi><mi>.</mi><msub><mi>q</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">q_1...q_{n-1}</annotation></semantics></math> entre la base <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>b</mi><annotation encoding="application/x-tex">b</annotation></semantics></math> (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>) hasta que el último cociente <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>q</mi><mi>n</mi></msub><annotation encoding="application/x-tex">q_n</annotation></semantics></math> sea igual a cero. Una vez que se haya obtenido el número binario positivo <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mn>2</mn></msub><annotation encoding="application/x-tex">x_2</annotation></semantics></math> se deberá extender la base binaria a su izquierda. Es decir, si el tamaño de agrupación del dato es de <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math> número de <em>bits</em> y el número de dígitos de <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mn>2</mn></msub><annotation encoding="application/x-tex">x_2</annotation></semantics></math> es <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>, entonces el número de ceros (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>) a concatenar a la izquierda estará dado por <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>−</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">m-n</annotation></semantics></math> siempre que <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">m≥0</annotation></semantics></math>.</p></li>
+<li><p><strong>Conversión de enteros negativos en base decimal a base binaria.</strong> La conversión de un número entero negativo en base decimal <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mn>10</mn></msub><annotation encoding="application/x-tex">x_{10}</annotation></semantics></math> a la base binaria <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mn>2</mn></msub><annotation encoding="application/x-tex">x_2</annotation></semantics></math> seguirá el mismo procedimiento que el de los enteros positivos pero, adicionalmente, se negará el número obtenido a partir de la concatenación de residuos <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>y</mi><mn>2</mn></msub><mo>=</mo><mo>¬</mo><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>r</mi><mi>n</mi></msub><mi>.</mi><mi>.</mi><mi>.</mi><msub><mi>r</mi><mn>1</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">y_2=\neg{(r_n...r_1)}</annotation></semantics></math> y luego se sumará una unidad binaria a dicho número: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mn>2</mn></msub><mo>=</mo><msub><mi>y</mi><mn>2</mn></msub><mo>+</mo><msub><mn>1</mn><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">x_2=y_2+1_2</annotation></semantics></math>. Así, una vez que se haya obtenido el número negativo <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mn>2</mn></msub><annotation encoding="application/x-tex">x_2</annotation></semantics></math> deberemos extender la base binaria a su izquierda. Es decir, si el tamaño de agrupación del dato es de <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math> número de <em>bits</em> y el número de dígitos de <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mn>2</mn></msub><annotation encoding="application/x-tex">x_2</annotation></semantics></math> es <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>, entonces el número de unos (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>) a concatenar a la izquierda estará dado por <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>−</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">m-n</annotation></semantics></math> siempre que <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>≥</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">m≥n</annotation></semantics></math>.</p></li>
+<li><p><strong>Conversión de enteros positivos en base binaria a base decimal.</strong> La conversión de un entero binario <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mn>2</mn></msub><annotation encoding="application/x-tex">x_2</annotation></semantics></math> mayor o igual a cero a su equivalente en base decimal <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mn>10</mn></msub><annotation encoding="application/x-tex">x_{10}</annotation></semantics></math> se obtendrá al sumar el valor de cada dígito multiplicado por la base binaria (2) elevada a la potencia correspondiente a la posición del digito, así: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mn>10</mn></msub><mo>=</mo><msub><mi>d</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>⋅</mo><msup><mn>2</mn><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msup><mo>+</mo><mi>.</mi><mi>.</mi><mi>.</mi><mo>+</mo><msup><mi>d</mi><mn>3</mn></msup><mo>⋅</mo><msup><mn>2</mn><mn>3</mn></msup><mo>+</mo><msub><mi>d</mi><mn>2</mn></msub><mo>⋅</mo><msup><mn>2</mn><mn>2</mn></msup><mo>+</mo><msub><mi>d</mi><mn>1</mn></msub><mo>⋅</mo><msup><mn>2</mn><mn>1</mn></msup><mo>+</mo><msub><mi>d</mi><mn>0</mn></msub><mo>⋅</mo><msup><mn>2</mn><mn>0</mn></msup></mrow><annotation encoding="application/x-tex">x_{10}=d_{n-1}\cdot2^{n-1}+...+d^3\cdot2^3+d_2\cdot2^2+d_1\cdot2^1+d_0\cdot2^0</annotation></semantics></math>.</p></li>
+<li><p><strong>Conversión de enteros negativos en base binaria a base decimal.</strong> La conversión de un entero binario <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mn>2</mn></msub><annotation encoding="application/x-tex">x_2</annotation></semantics></math> menor a cero a su equivalente en base decimal <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mn>10</mn></msub><annotation encoding="application/x-tex">x_{10}</annotation></semantics></math> se podrá realizar con los siguientes pasos. Primero, se deberá realizar la negación (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>¬</mo><annotation encoding="application/x-tex">\neg</annotation></semantics></math>) de los valores del número binario <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mn>2</mn></msub><annotation encoding="application/x-tex">x_2</annotation></semantics></math>. Luego, a este número se le deberá sumar una unidad en base binaria: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>y</mi><mn>2</mn></msub><mo>=</mo><mo>¬</mo><msub><mi>x</mi><mn>2</mn></msub><mo>+</mo><msub><mn>1</mn><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">y_2=\neg x_2+1_2</annotation></semantics></math>. Después de realizar la negación y adición de una unidad, al número binario resultante <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>y</mi><mn>2</mn></msub><annotation encoding="application/x-tex">y_2</annotation></semantics></math> se le podrá convertir a la base decimal con el procedimiento indicado para la conversión de binarios mayores o iguales a cero: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>y</mi><mn>10</mn></msub><mo>=</mo><msub><mi>d</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>⋅</mo><msup><mn>2</mn><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msup><mo>+</mo><mi>.</mi><mi>.</mi><mi>.</mi><mo>+</mo><msup><mi>d</mi><mn>3</mn></msup><mo>⋅</mo><msup><mn>2</mn><mn>3</mn></msup><mo>+</mo><msub><mi>d</mi><mn>2</mn></msub><mo>⋅</mo><msup><mn>2</mn><mn>2</mn></msup><mo>+</mo><msub><mi>d</mi><mn>1</mn></msub><mo>⋅</mo><msup><mn>2</mn><mn>1</mn></msup><mo>+</mo><msub><mi>d</mi><mn>0</mn></msub><mo>⋅</mo><msup><mn>2</mn><mn>0</mn></msup></mrow><annotation encoding="application/x-tex">y_{10}=d_{n-1}\cdot2^{n-1}+...+d^3\cdot2^3+d_2\cdot2^2+d_1\cdot2^1+d_0\cdot2^0</annotation></semantics></math>. Finalmente, al número en base decimal <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>y</mi><mn>10</mn></msub><annotation encoding="application/x-tex">y_{10}</annotation></semantics></math> obtenido, se le deberá multiplicar por menos uno para invertirle el signo: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><msub><mi>y</mi><mn>10</mn></msub></mrow><annotation encoding="application/x-tex">-y_{10}</annotation></semantics></math>. El resultado de esta multiplicación será el número negativo buscado en base decimal <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mn>10</mn></msub><annotation encoding="application/x-tex">x_{10}</annotation></semantics></math>. A continuación, se especifica el resumen de este procedimiento: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mn>10</mn></msub><mo>=</mo><msub><mrow><mo stretchy="true" form="prefix">(</mo><mo>¬</mo><msub><mi>x</mi><mn>2</mn></msub><mo>+</mo><msub><mn>1</mn><mn>2</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><mn>10</mn></msub><mo>×</mo><mi>−</mi><msub><mn>1</mn><mn>10</mn></msub><mo>=</mo><msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>y</mi><mn>2</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><mn>10</mn></msub><mo>×</mo><mi>−</mi><mn>1</mn><mo>=</mo><msub><mi>y</mi><mn>10</mn></msub><mo>×</mo><mi>−</mi><mn>1</mn><mo>=</mo><mi>−</mi><msub><mi>y</mi><mn>10</mn></msub></mrow><annotation encoding="application/x-tex">x_{10} = ( \neg x_2 + 1_2 )_{10} \times -1_{10} = (y_2)_{10} \times -1 = y_{10} \times -1 = -y_{10}</annotation></semantics></math>.</p></li>
+</ul>
+<p>A diferencia de la representación de los números reales (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ℝ</mi><annotation encoding="application/x-tex">\mathbb{R}</annotation></semantics></math>), cuyo almacenamiento nunca es totalmente exacto, el almacenamiento exacto de los números enteros en base binaria será posible siempre dentro del intervalo de almacenamiento.</p>
+</section>
+<section id="notas" class="level2" data-number="7">
+<h2 data-number="7" class="anchored" data-anchor-id="notas"><span class="header-section-number">7</span> Notas</h2>
+<section id="sobre-la-verificación-matemática-de-los-números-enteros" class="level3" data-number="7.1">
+<h3 data-number="7.1" class="anchored" data-anchor-id="sobre-la-verificación-matemática-de-los-números-enteros"><span class="header-section-number">7.1</span> Sobre la verificación matemática de los números enteros</h3>
+<div class="callout callout-style-simple callout-caution no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>La expresión <code>is.integer(x)</code> no verificará si un objeto <em><code>x</code></em> contiene valores con números enteros, sino cuál es el <a href="typeof%20%7Bbase%7D" title="typeof {base}">tipo de almacenamiento</a> del vector. Para verificar que los elementos de un vector sean números enteros, en el sentido matemático (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ℤ</mi><annotation encoding="application/x-tex">\mathbb{Z}</annotation></semantics></math>), utilice la función <code>round()</code> de la forma indicada en la función <code>es.numeroentero(x)</code> construida en la sección de <em>Ejemplos</em> de esta misma página de ayuda.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="sobre-las-denominaciones-de-los-tipos-modos-y-clases-numéricas" class="level3" data-number="7.2">
+<h3 data-number="7.2" class="anchored" data-anchor-id="sobre-las-denominaciones-de-los-tipos-modos-y-clases-numéricas"><span class="header-section-number">7.2</span> Sobre las denominaciones de los tipos, modos y clases numéricas</h3>
+<p><code>"integer"</code> es la etiqueta que identifica el <a href="typeof%20%7Bbase%7D" title="typeof {base}">tipo interno de almacenamiento</a> que permite a los vectores <em>enteros</em> trabajar con números de este tipo. Por otro lado, la etiqueta <code>"double"</code> identifica al tipo interno de almacenamiento <em>doble</em> que permite a los vectores trabajar con valores continuos o reales. En cambio, la etiqueta <code>"numeric"</code> es el nombre de un <a href="mode%20%7Bbase%7D" title="mode {base}">modo de almacenamiento</a> de datos, que agrupa tanto al tipo <code>"integer"</code> como al tipo <code>"double"</code> bajo una sola categoría. En este sentido, cuando hablamos del <em>tipo</em> del vector, nos referimos solamente al tipo interno de almacenamiento, nunca a su modo de almacenamiento.</p>
+<p>Los vectores, además de poseer tipos y modos de almacenamiento, son también objetos del lenguaje. Los objetos consisten en entidades abstractas que representan a entidades concretas del mundo real. Como abstracciones, poseen sólo algunos atributos del objeto representado. Así, la <em>clase</em> de un objeto en R consistirá en el subconjunto de atributos que determina al tipo de objeto representado.</p>
+<p>Uno de los atributos más importantes de cualquier objeto son los métodos y funciones específicas que pueden aplicársele. A partir de <em>S4</em> (el antecedente de <strong>R</strong>) se definió formalmente a la clase <code>"integer"</code> como una con métodos específicos para objetos con el tipo de almacenamiento <code>"integer"</code>. Esto supone que los vectores de tipo <code>"integer"</code>, si bien cuentan con un modo de almacenamiento definido como <code>"numeric"</code>, pertenecen a una clase con un conjunto de métodos propio. Para obtener más información, puedes consultar la sección <em>Ejemplos</em> en esta misma página de ayuda.</p>
+<p>Ya que <strong>R</strong> utiliza indistintamente al modo de almacenamiento <code>"numeric"</code> para agrupar en una categoría a los vectores almacenados con los tipos de internos de almacenamiento <code>"integer"</code> y <code>"double"</code>, pero aplica los métodos de la clase <code>"integer"</code> para el tipo <code>"integer"</code> y los métodos de la clase <code>"numeric"</code> para el tipo <code>"double"</code>, las usuarias podrían encontrarse en la situación de no estar seguras de qué funciones son válidas para un objeto numérico. Para evitar confusiones sobre el tipo de objeto de que se trata, puedes consultar siempre el tipo interno de almacenamiento con la función <code>storage.mode()</code> o, directamente, la clase del objeto con la función <a href="class%20%7Bbase%7D" title="class {base}"><code>class()</code></a>.</p>
+</section>
+</section>
+<section id="también-véase" class="level2" data-number="8">
+<h2 data-number="8" class="anchored" data-anchor-id="también-véase"><span class="header-section-number">8</span> También véase</h2>
+<p>Las funciones <code>numeric()</code> y <code>storage.mode()</code> para más información sobre otros tipos de almacenamiento numérico.</p>
+</section>
+<section id="ejemplos" class="level2" data-number="9">
+<h2 data-number="9" class="anchored" data-anchor-id="ejemplos"><span class="header-section-number">9</span> Ejemplos</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="do">## as.integer() truncará al coaccionar:</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> pi <span class="sc">*</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">:</span><span class="dv">1</span>, <span class="dv">10</span>) <span class="co"># -3.141593  0.000000  3.141593 31.415927</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">as.integer</span>(x) <span class="co"># -3  0  3 31</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="do">## is.integer() comprobará el tipo de  </span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="do">## almacenamiento, no el valor numérico</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">is.integer</span>(<span class="dv">1</span>) <span class="co"># ¡es falso!</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">is.integer</span>(<span class="dv">1</span>L) <span class="co"># ¡es verdadero!</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">is.integer</span>(<span class="cn">NA</span>) <span class="co"># ¡es falso!</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="fu">is.integer</span>(<span class="cn">NA_integer_</span>) <span class="co"># ¡es verdadero!</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="do">## Función para comprobar que los elementos de un vector entero</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="do">## también son matemáticamente números enteros (Z)</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>es.numeroentero <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">tol =</span> .Machine<span class="sc">$</span>double.eps<span class="sc">^</span><span class="fl">0.5</span>) {</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>      <span class="fu">abs</span>(x <span class="sc">-</span> <span class="fu">round</span>(x)) <span class="sc">&lt;</span> tol</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="fu">es.numeroentero</span>(<span class="dv">1</span>) <span class="co"># es verdadero</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="fu">es.numeroentero</span>(<span class="fl">1.0</span>) <span class="co"># es verdadero</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="fu">es.numeroentero</span>(<span class="fl">1.00001</span>) <span class="co"># es falso</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>(x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="at">by =</span> <span class="fl">0.5</span>)) <span class="co"># 1.0 1.5 2.0 2.5 3.0 3.5 4.0 4.5 5.0</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="fu">es.numeroentero</span>(x) <span class="co">#--&gt;  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="do">## Conversión de enteros de 32 bits, positivos o negativos,</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="do">## del sistema decimal al sistema binario</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>decAbin <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>      <span class="fu">vapply</span>(<span class="fu">as.integer</span>(x), <span class="cf">function</span>(x) {</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>            b <span class="ot">&lt;-</span> <span class="fu">substr</span>(<span class="fu">as.character</span>(<span class="fu">rev</span>(<span class="fu">intToBits</span>(x))), <span class="dv">2</span>L, <span class="dv">2</span>L)</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>            <span class="fu">paste0</span>(<span class="fu">c</span>(b[<span class="dv">1</span>L], <span class="st">" "</span>, b[<span class="dv">2</span><span class="sc">:</span><span class="dv">32</span>]), <span class="at">collapse =</span> <span class="st">""</span>)</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>      }, <span class="st">""</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>            <span class="fu">noquote</span>()</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>(x<span class="ot">&lt;-</span><span class="fu">decAbin</span>(<span class="sc">+</span><span class="dv">3</span>L)) <span class="co">#0 0000000000000000000000000000011 # Banderín + a la izquierda</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>(y<span class="ot">&lt;-</span><span class="fu">decAbin</span>(<span class="sc">-</span><span class="dv">3</span>L)) <span class="co">#1 1111111111111111111111111111101 # Banderín - a la izquierda</span></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="do">## Conversión de enteros de 32 bits, positivos o negativos,</span></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="do">## del sistema binario al sistema decimal</span></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>binAdec <span class="ot">&lt;-</span> <span class="cf">function</span>(d) {</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Recibe una cadena de caracteres y elimina</span></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>      <span class="co"># los espacios dentro de ella</span></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>      d <span class="sc">|&gt;</span>  <span class="fu">as.character</span>() <span class="sc">|&gt;</span></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>            <span class="fu">gsub</span>(<span class="at">pattern =</span> <span class="st">" "</span>, <span class="at">replacement =</span> <span class="st">""</span>,<span class="at">x =</span> _) <span class="sc">|&gt;</span></span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>            <span class="fu">strsplit</span>(<span class="at">split =</span> <span class="st">""</span>) <span class="sc">|&gt;</span> <span class="fu">unlist</span>() <span class="sc">|&gt;</span></span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>            <span class="fu">as.integer</span>() <span class="ot">-&gt;</span> d </span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>      len <span class="ot">&lt;-</span> <span class="fu">length</span>(d)</span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Exponentes para la base</span></span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>      exp <span class="ot">&lt;-</span> <span class="fu">seq.int</span>(<span class="at">from =</span> len <span class="sc">-</span> <span class="dv">1</span>, <span class="at">to =</span> <span class="dv">0</span>, <span class="at">by =</span> <span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Decidir qué hacer para el caso positivo (0) y negativo (1)</span></span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (d[<span class="dv">1</span>] <span class="sc">==</span> <span class="dv">0</span>) {</span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>            <span class="fu">sum</span>(d<span class="sc">*</span>(<span class="dv">2</span><span class="sc">^</span>exp))</span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>      } <span class="cf">else</span> {</span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>            b <span class="ot">&lt;-</span>  <span class="fu">as.integer</span>(<span class="sc">!</span>d); u <span class="ot">&lt;-</span> <span class="fu">integer</span>(<span class="at">length =</span> len)</span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>            z <span class="ot">&lt;-</span> <span class="fu">integer</span>(<span class="at">length =</span> len); u[len] <span class="ot">&lt;-</span> <span class="dv">1</span>L</span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>            m <span class="ot">&lt;-</span> <span class="fu">cbind</span>(b, u, z); acarreo <span class="ot">&lt;-</span> <span class="dv">0</span>L</span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> (i <span class="cf">in</span> len<span class="sc">:</span><span class="dv">2</span>) {</span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>                  s <span class="ot">&lt;-</span> m[i, <span class="dv">1</span>] <span class="sc">+</span> m[i, <span class="dv">2</span>] <span class="sc">+</span> acarreo</span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>                  acarreo <span class="ot">&lt;-</span> <span class="dv">0</span>L</span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>                  <span class="cf">if</span> (s <span class="sc">==</span> <span class="dv">0</span> <span class="sc">|</span> s <span class="sc">==</span> <span class="dv">1</span>) {</span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>                        m[i, <span class="dv">3</span>] <span class="ot">&lt;-</span> s</span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a>                  } <span class="cf">else</span> {</span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>                        m[i, <span class="dv">3</span>] <span class="ot">&lt;-</span> <span class="dv">0</span>L</span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a>                        acarreo <span class="ot">&lt;-</span> <span class="dv">1</span>L</span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a>                  }</span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a>            }</span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a>            d <span class="ot">&lt;-</span> m[, <span class="dv">3</span>]</span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a>            <span class="fu">sum</span>(d<span class="sc">*</span>(<span class="dv">2</span><span class="sc">^</span>exp))<span class="sc">*</span>(<span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a><span class="fu">binAdec</span>(x) <span class="co"># +3</span></span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a><span class="fu">binAdec</span>(y) <span class="co"># -3</span></span>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a><span class="do">## Para verificar las funciones de la clase "integer" y "numeric"</span></span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a><span class="fu">methods</span>(<span class="at">class =</span> <span class="st">"integer"</span>) <span class="co"># as.data.frame      coerce      Ops  </span></span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a><span class="fu">methods</span>(<span class="at">class =</span> <span class="st">"numeric"</span>) <span class="co"># all.equal   as.data.frame  as.Date  as.POSIXct    </span></span>
+<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a>                           <span class="co"># as.POSIXlt  as.raster      coerce   Ops          </span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="código-fuente" class="level2" data-number="10">
+<h2 data-number="10" class="anchored" data-anchor-id="código-fuente"><span class="header-section-number">10</span> Código fuente</h2>
+<section id="integer" class="level3" data-number="10.1">
+<h3 data-number="10.1" class="anchored" data-anchor-id="integer"><span class="header-section-number">10.1</span> <code>integer()</code></h3>
+<div class="sourceCode" id="cb3"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>function <span class="op">(</span>length <span class="op">=</span> <span class="dv">0</span><span class="bu">L</span><span class="op">)</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span>Internal<span class="op">(</span>vector<span class="op">(</span><span class="st">"integer"</span><span class="op">,</span> length<span class="op">))</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="as.integer" class="level3" data-number="10.2">
+<h3 data-number="10.2" class="anchored" data-anchor-id="as.integer"><span class="header-section-number">10.2</span> <code>as.integer()</code></h3>
+<div class="sourceCode" id="cb4"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>function <span class="op">(</span>x<span class="op">)</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>      <span class="op">.</span>Primitive<span class="op">(</span><span class="st">"as.integer"</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="is.integer" class="level3" data-number="10.3">
+<h3 data-number="10.3" class="anchored" data-anchor-id="is.integer"><span class="header-section-number">10.3</span> <code>is.integer()</code></h3>
+<div class="sourceCode" id="cb5"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>function <span class="op">(</span>x<span class="op">)</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>      <span class="op">.</span>Primitive<span class="op">(</span><span class="st">"is.integer"</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="referencias" class="level2" data-number="11">
+<h2 data-number="11" class="anchored" data-anchor-id="referencias"><span class="header-section-number">11</span> Referencias</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-becker1988" class="csl-entry" role="listitem">
+Becker, Richard A., John M. Chambers, y Allan R. Wilks. 1988. <em>The New S Language: A Programming Environment for Data Analysis and Graphics</em>. Computer Science Series. Pacific Grove, California: Wadsworth &amp; Brooks/Cole Advanced Books &amp; Software. <a href="http://archive.org/details/newslanguageprog0000beck">http://archive.org/details/newslanguageprog0000beck</a>.
+</div>
+</div>
+</section>
+<section id="traduccion" class="level2 title" data-number="12">
+<h2 class="title anchored" data-number="12" data-anchor-id="traduccion"><span class="header-section-number">12</span> Sobre esta traducción</h2>
+<p>La traducción al español de esta página de ayuda fue actualizada el 02 de mayo de 2025 y está basada en la documentación original de <strong>R</strong> en inglés para la versión 4.3.0. Es una versión extendida de la página de ayuda original y tiene como objetivo ampliar la información ofrecida en la versión inglesa. La revisión técnica de esta página de ayuda todavía no ha sido realizada. Si deseas participar revisando los aspectos estadísticos y de programación, o sugerir mejoras gramaticales, ortográficas o de estilo al texto, puedes dirigirte a la página del proyecto en: https://github.com/sicabi/documentacionR. Toda contribución será atribuida a la persona que la realice.</p>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copiado");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copiado");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

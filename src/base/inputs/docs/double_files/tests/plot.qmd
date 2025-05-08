@@ -1,0 +1,10 @@
+---
+title: "Untitled"
+format: pdf
+editor: visual
+---
+
+```{r, fig.width=6.5, fig.height=3, fig.align='center', fig.cap="Rango de representación de números de punto flotante de 64 bits"}
+#| echo: false
+
+```
