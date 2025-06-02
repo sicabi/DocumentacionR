@@ -320,7 +320,7 @@ $$ {#eq-punto-flotante}
 
 La @eq-punto-flotante tiene varias implicaciones. La primera es que el número total de valores de punto flotante que un subformato puede representar es resultado de las combinaciones existentes entre el número de valores que cada dígito puede adoptar de acuerdo a la base ($\beta = 2$) y el número de dígitos totales del formato ($W \in \{16, 32, 64, 128\}$). 
 
-De este modo, la precisión *media* representará $2^16$ valores de punto flotante, la precisión *simple* contendrá $2^32$ valores; a su vez, la precisión *doble* albergará $2^64$ valores y, finalmente, la precisión *doble extendida* contendrá $2^128$ valores posibles. En consecuencia, a diferencia de los números reales, el dominio de los números de punto flotante es finito.
+De este modo, la precisión *media* representará $2^{16}$ valores de punto flotante, la precisión *simple* contendrá $2^{32}$ valores; a su vez, la precisión *doble* albergará $2^{64}$ valores y, finalmente, la precisión *doble extendida* contendrá $2^{128}$ valores posibles. En consecuencia, a diferencia de los números reales, el dominio de los números de punto flotante es finito.
 
 La primera consiste en que la disponibilidad de los números de punto flotante estará organizada en «ventanas» definidas por el resultado de elevar la base $\beta$ a los valores definidos entre $e_{min}$ y $e_{max}$ [@evans_how_2023, 20]. Así, la primer ventana de valores irá de $\beta^{e_{min}}$ a $\beta^{e_{min}+1}$, la siguiente de $[\beta^{e_{min}+1}, \beta^{e_{min}+2}]$, y así sucesivamente hasta llegar al último rango: $[\beta^{e_{max}-1}, \beta^{e_{max}}]$. Por su parte, el número de ventanas es simplemente resultado de elevar la base $\beta$ al número de dígitos disponibles para el exponente $e$ ($W_e$). 
 
