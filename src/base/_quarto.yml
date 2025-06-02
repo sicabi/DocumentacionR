@@ -40,9 +40,10 @@ monofont: "Liberation Mono"
 mathfont: "Liberation Serif"
 date: 2025-05-02
 crossref:
+  labels: arabic
   title-delim: "."
 
 execution:
-  cache: false
+  cache: true
   keep-tex: false
   keep-md: false

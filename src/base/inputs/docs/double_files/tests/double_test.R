@@ -1,18 +1,41 @@
-w <- 3
-sesgo <- (2^(w-1)) - 1
-exp_interno <- 1:((2^w) - 2)
-exp_externo = exp_interno - sesgo
-valor <- 2^exp_externo
-esquema <- data.frame(exp_interno, exp_externo, valor)
-mantissa <- seq(from = 1, to = 2, length.out = length(valor))
-counter <- 1
-flotante <- double()
-for (i in 1:length(mantissa)) {
-      for (j in 1:length(valor)) {
-            flotante[counter] <- valor[j]*mantissa[i]
-            counter <- counter + 1
-      }
+x <- 1/4
+k <- x*32
+p <- k - round(4*log(x = k, base = 2)) + 13
+t <- p - 1
+w <- k - t - 1
+e_max <- 2^(w-1) - 1
+e_max
+e_min <- 1 - e_max
+b <- e_max
+
+c(W = p + w, signo = k - t - w, exp = w, m = p)
+
+(w_s <- 1)
+(w_e <- 3)
+(w_m <- 4)
+(sesgo <- (2^(w_e-1)) - 1)
+(exp_interno <- 1:((2^w_e)) - 1)
+(exp_externo = exp_interno - sesgo)
+(beta_exp <- 2^exp_externo)
+
+upper_limit <- double(length = 1)
+for (i in 1:w_m) {
+  upper_limit <- upper_limit + (1/2)^(i)
 }
+(mantissa <- seq(from = 0, to = upper_limit, 
+                length.out = 2^w_m))
+(mantissa <- mantissa + 1)
+fp <- expand.grid(c(-1,1), beta_exp, mantissa)
+fp <- fp[order(fp$Var1, decreasing = FALSE),]
+colnames(fp)[1:3] <- c("decimal_sign","decimal_baseToexp","decimal_mantissa")
+fp$flotante <- fp$sign*fp$baseToexp*fp$mantissa
+fp <- fp[order(fp$flotante, decreasing = FALSE),]
+
+
+plot(xlim = c(min(mantissa),max(mantissa)), 
+     ylim = c(min(exp_externo)*1.15,max(exp_externo)*1.15), 
+     x = mantissa, y = exp_externo, cex = 0.3)
+
 
 valores_x <- c(-flotante[length(flotante):1],0,flotante) |>
       sort() |> unique()

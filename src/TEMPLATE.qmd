@@ -61,7 +61,13 @@ editor: visual
 
 ## Nota
 
+$$
+y = mx + b
+$$ {#eq-recta}
+
 ## Referencias
+
+
 
 ## También véase
 
