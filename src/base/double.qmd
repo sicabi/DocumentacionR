@@ -19,19 +19,19 @@ format:
 
 ## Descripción {#descripcion .title}
 
-La función **`double()`** creará un vector de tipo *doble* (`"double"`) que podrá almacenar un subconjunto amplio de los números reales ($\pm1.79×10^{308}$) con una exactitud máxima de hasta quince dígitos. Para conocer más sobre la precisión y exactitud de los números reales en **R**, puedes consultar más adelante la sección \nameref{sec-definicion-dobles}.
+La función **`double()`** creará un vector de tipo *doble* (`"double"`) que podrá almacenar un subconjunto amplio de los números reales ($\pm1.79×10^{308}$) con una exactitud máxima de hasta quince dígitos. Para conocer más sobre la precisión y exactitud de los números reales en **R**, puedes consultar más adelante la sección [Definición de los vectores *dobles*](#sec-definicion-dobles).
 
 La función **`as.double()`** intentará convertir en un vector de tipo *doble* a cualquier clase de objeto. Por su parte, la función **`is.double()`** verificará si un objeto es de tipo *doble*.
 
 La función **`single()`** creará un vector de tipo *doble* para almacenamiento de números reales, pero añadirá un atributo (`"Csingle"`) que permitirá identificar al vector con el tipo de datos *sencillo* a nivel interno del código de **R**.
 
-El tipo de datos *sencillo* podrá almacenar un subconjunto menos amplio de los números reales ($±3.4×10^{38}$). Para conocer más sobre este tema, puedes consultar más adelante la sección \nameref{sec-detalles-tipos}.
+El tipo de datos *sencillo* podrá almacenar un subconjunto menos amplio de los números reales ($±3.4×10^{38}$). Para conocer más sobre este tema, puedes consultar más adelante la sección [Los parámetros del formato de punto flotante del estándar *IEEE-754*](#sec-parámetros-ieee-754).
 
 La función **`as.single()`** intentará convertir cualquier objeto en un vector de tipo *doble*, además, añadirá un atributo (`"Csingle"`) que permitirá identificar al vector como uno de tipo *sencillo* a nivel interno del código de **R**.
 
 La función [**`numeric()`**](numeric.fun) es idéntica a la función **`double()`** y la función [**`as.numeric()`**](numeric.fun) es idéntica a **`as.double()`**. La función [**`is.numeric()`**](numeric.fun) comprobará si un vector es de [tipo](typeof.fun "typeof {base}") *doble* (`"double")` o de tipo [*entero*](integer.fun) (`"integer")`.
 
-Estas funciones existen como una denominación más práctica para trabajar con números reales en **R**. Para conocer más sobre este tema, puedes consultar más adelante la sección \nameref{funciones-crear-dobles}.
+Estas funciones existen como una denominación más práctica para trabajar con números reales en **R**. Para conocer más sobre este tema, puedes consultar más adelante la sección [Funciones para crear vectores *dobles*](#sec-funciones-crear-dobles).
 
 La función [**`c()`**](c.base "c {base}") creará un vector *doble* si se utiliza para combinar valores reales que estén separados por comas.
 
@@ -108,7 +108,7 @@ Una precisión mayor a veintidós dígitos no suele tener ningún significado pr
 
 Aunque es muy conveniente no perder de vista las limitaciones en precisión y exactitud de los valores *dobles*, la gran mayoría de aplicaciones estadísticas y científicas no suele demandar una precisión mucho mayor a la ofrecida por el formato *doble* de punto flotante [@muller_handbook_2018, 4].
 
-Para conocer más información sobre cómo ampliar la exactitud de las operaciones matemáticas por encima de los límites de los valores *dobles*, puedes consultar más adelante la sección \nameref{sec-detalles-representacion}. Igualmente, si deseas profundizar sobre las características de la aritmética de punto flotante, puedes consultar más adelante la sección \nameref{sec-detalles-tipos}.
+Para conocer más información sobre cómo ampliar la exactitud de las operaciones matemáticas por encima de los límites de los valores *dobles*, puedes consultar más adelante la sección [La representación de valores matemáticos y estadísticos especiales](#sec-valores-especiales). Igualmente, si deseas profundizar sobre las características de la aritmética de punto flotante, puedes consultar más adelante la sección \[El formato de almacenamiento de los vectores *dobles*\].
 
 ### Funciones para crear vectores *dobles* {#sec-funciones-crear-dobles .subtitle}
 
@@ -126,7 +126,7 @@ En particular, la función [**`c()`**](c.abse) es de tipo [primitivo](Primitive.
 
 Los vectores *sencillos* pueden almacenar números reales con una precisión de hasta siete cifras significativas exactas en el intervalo aproximado de $\pm3.4×10^{38}$, es decir, con una precisión y exactitud menor a la de los vectores *dobles*. Ya que todos los números reales son almacenados con el tipo de datos *doble* (`"double"`), **R** no cuenta en realidad con el tipo de datos *sencillo*, también conocido como *flotante* (*`"float"`*) en otros lenguajes de programación.
 
-Para más información sobre la utilización de las funciones para crear vectores *dobles*, puedes ver más adelante la sección \nameref{valor}.
+Para más información sobre la utilización de las funciones para crear vectores *dobles*, puedes ver más adelante la sección [Valor devuelto](#sec-valor).
 
 ### Funciones para convertir objetos en vectores *dobles* {#sec-funciones-convertir-dobles .subtitle}
 
@@ -146,7 +146,7 @@ Por su parte, la función **`is.double()`** se utilizará para verificar si un [
 
 La función [**`is.numeric()`**](numeric.base) comprobará si un vector es de [tipo](typeof.base "typeof {base}") *doble* (`"double")` o de tipo [entero](integer.base) (`"integer")`. Por lo tanto, no es exclusiva para los vectores *dobles* sino para los objetos de [modo](mode.base) [numérico](numeric.base).
 
-Para acceder a más información sobre la utilización de estas funciones, puedes consultar más adelante la sección \nameref{valor}.
+Para acceder a más información sobre la utilización de estas funciones, puedes consultar más adelante la sección [Valor devuelto](#sec-valor).
 
 ### El formato de almacenamiento de los vectores dobles {#sec-detalles-almacenamiento .subtitle}
 
@@ -160,21 +160,21 @@ Por lo general, el tipo de datos *doble* de **R** está implementado de acuerdo 
 
 De acuerdo con este estándar, los valores de precisión doble usarán $64$ dígitos binarios (ocho *bytes*) para almacenar internamente un número real, mientras que los valores de precisión sencilla utilizarán $32$ dígitos binarios (cuatro *bytes*).
 
-Los *bits* de almacenamiento doble se distribuirán de la siguiente manera: un dígito corresponderá al signo del significante, $52$ dígitos almacenarán al significante, y once dígitos corresponderán al exponente de la base. Puedes consultar más adelante la sección @sec-detalles-tipos para conocer más detalles sobre estos conceptos.
+Los *bits* de almacenamiento doble se distribuirán de la siguiente manera: un dígito corresponderá al signo del significante, $52$ dígitos almacenarán al significante, y once dígitos corresponderán al exponente de la base. Puedes consultar más adelante la sección [El formato de punto flotante de acuerdo al estándar *IEEE-754*](#sec-estandar-ieee-754) para conocer más detalles sobre estos conceptos.
 
 En específico, los bits de almacenamiento binario permtirán almacenar números reales con una exactitud de hasta quince dígitos en formato decimal, y hasta veintidós dígitos de manera aproximada.
 
-Esto significa que, después del dígito quince la precisión de una cifra almacenada aumentará sólo con una reducción o costo en su exactitud. Para más información, puedes consultar a continuación la sección @sec-detalles-representacion.
+Esto significa que, después del dígito quince la precisión de una cifra almacenada aumentará sólo con una reducción o costo en su exactitud. Para más información, puedes consultar a continuación la sección [La representación de los valores *dobles*](#sec-detalles-representacion).
 
-En la actualidad, el estándar ISO/IEC-60559:2020 utiliza la denominación *binaria64* (*binary64*) para referirse a la *precisión doble,* y *binaria32* (*binary32*) para referirse la *precisión sencilla*.
+En la actualidad, el estándar *IEEE-754* utiliza la denominación *binaria64* (*binary64*) para referirse a la *precisión doble,* y *binaria32* (*binary32*) para referirse la *precisión sencilla*.
 
-No obstante, a nivel de los lenguajes de programación, la *precisión doble* es todavía conocida ampliamente como el tipo de datos *`"double"`* o *`"numeric"`*, mientras que la precisión *sencilla* se suele denominar como el tipo de datos *`"single"`* o *`"float"`*. Si deseas conocer más información sobre este tema puedes consultar más adelante la sección \nameref{sec-detalles-tipos}.
+No obstante, a nivel de los lenguajes de programación, la *precisión doble* es todavía conocida ampliamente como el tipo de datos *`"double"`* o *`"numeric"`*, mientras que la precisión *sencilla* se suele denominar como el tipo de datos *`"single"`* o *`"float"`*. Si deseas conocer más información sobre este tema puedes consultar más adelante la sección [Los parámetros del formato de punto flotante del estándar *IEEE-754*](#sec-parámetros-ieee-754).
 
-El estándar ISO/IEC-60559:2020 también contempla el almacenamiento y representación de valores especiales para casos numéricos límite, como los infinitos ($\pm\infty$) y las operaciones matemáticas no definidas ($\nexists$). Los infinitos son representados con la abreviatura `-Inf`para el infinito negativo y la abreviatura `+Inf` para el infinito positivo, mientras que las operaciones no definidas son representadas con el acrónimo `NaN`. Además, se definen como válidos los valores negativo (`-0`) y positivo (`+0`) de cero, los cuales son equivalentes a cero (`0`).
+El estándar *IEEE-754* también contempla el almacenamiento y representación de valores especiales para casos numéricos límite, como los infinitos ($\pm\infty$) y las operaciones matemáticas no definidas ($\nexists$). Los infinitos son representados con la abreviatura `-Inf`para el infinito negativo y la abreviatura `+Inf` para el infinito positivo, mientras que las operaciones no definidas son representadas con el acrónimo `NaN`. Además, se definen como válidos los valores negativo (`-0`) y positivo (`+0`) de cero, los cuales son equivalentes a cero (`0`).
 
 En las computadoras modernas, la aritmética de punto flotante está implementada directamente desde la maquinaria del equipo, en el coprocesador matemático o Unidad de Punto Flotante (FPU, por sus siglas en inglés).
 
-Por lo tanto, en última instancia, el manejo de los números de *precisión doble* dependerá de las características del procesador (CPU, por sus siglas en inglés), el coprocesador y el compilador de la computadora donde se instale **R**. Si la maquinaria de equipo se adhiere al estándar ISO/IEC-60559:2020, entonces **R** también lo hará.
+Por lo tanto, en última instancia, el manejo de los números de *precisión doble* dependerá de las características del procesador (CPU, por sus siglas en inglés), el coprocesador y el compilador de la computadora donde se instale **R**. Si la maquinaria de equipo o el software de sistema se adhieren al estándar *IEEE-754*, entonces **R** también lo hará.
 
 Para conocer más detalles sobre los límites y el tipo del almacenamiento numérico en tu plataforma de sistema puedes ver la página de ayuda sobre las [características numéricas del equipo](.Machine).
 
@@ -282,80 +282,101 @@ Con todo, el formato *binario de punto flotante* avalado por el estándar *IEEE-
 
 #### El formato de punto flotante de acuerdo al estándar *IEEE-754* {#sec-estandar-ieee-754 .subtitle}
 
-El estándar *IEEE-754* (equivalente al estándar *ISO/IEC-60559*) codifica al *formato de punto o coma flotante* en la mayoría de las computadoras del mundo. Dicho estándar fue aprobado en 1985 por el Instituto de Ingenieros Eléctricos y Electrónicos (IEEE) de Estados Unidos con el propósito de aumentar la portabilidad de los programas matemáticos entre computadoras con diferente arquitectura [@hough_ieee_2019, 110].
+El estándar *IEEE-754* (equivalente al estándar internacional *ISO/IEC-60559*) codifica al *formato de punto o coma flotante* en la mayoría de las computadoras del mundo. Dicho documento fue fue aprobado en 1985 por el Instituto de Ingenieros Eléctricos y Electrónicos (IEEE) de Estados Unidos con el propósito de permitir la portabilidad de los programas matemáticos entre computadoras con diferente arquitectura, algo muy difícil de lograr antes de su publicación [@hough_ieee_2019, 110].[^3]
 
-En esencia, el estándar *IEEE-754* define al formato de punto flotante como una estructura de datos con una distribución específica de campos que constituyen la representación de un número. Además, señala los procedimientos para que las operaciones computacionales devuelvan los resultados matemáticos esperados. De manera previsora, el formato preestablece valores especiales para casos numéricos límite, tales como los infinitos ($\pm\infty$), los valores anormales (próximos al cero), y las operaciones matemáticas cuyo resultado no está definido ($\nexists$).
+[^3]: El diseño del estándar fue propuesto originalmente por John Palmer de Intel en 1978 a un grupo de profesores y estudiantes de la Universidad de Berkeley encabezados por William Kahan, Jerome Coonen y Harold Stone [@ieee_milestonesieee_2024]. Curiosamente, antes de ser aprobado en Estados Unidos, una versión similar fue aprobada internacionalmente for Comisión Internacional de Electrotecnia de la Organización Internacional de Normalización (IEC/ISO por sus siglas en inglés) en 1982.
 
-A su vez, las estructuras y operaciones del estándar son implementadas en las diferentes capas de un sistema computacional —desde la maquinaria del equipo hasta las bibliotecas de los lenguajes de programación— y en conjunto constituyen una aritmética o entorno de punto flotante [@oracle_oracle_2017, 1].
+Esto se consiguió gracias a la especificación clara de los formatos de almacenamiento numérico, a la introducción del manejo de las excepciones matemáticas, así como al mandato de lograr un redondeo exacto de las operaciones aritméticas [@muller_handbook_2018,47].[^4] Actualmente, la utilidad principal del estándar *IEEE-754* consiste en ofrecer procedimientos confiables para la realización de cálculos matemáticos en diversos campos de la ciencia [@muller_handbook_2018, 4].
 
-De este modo, el formato de *punto flotante* consiste en una representación de la aritmética de los números reales basada en un formato de almacenamiento similar a la notación científica. Su principal propósito es ofrecer procedimientos confiables para la realización de cálculos matemáticos en diversos campos de la ciencia [@muller_handbook_2018, 4]. No obstante, la reducción de un número infinito de valores reales a un número finito de bits requiere de una representación numérica basada en el redondeo de cantidades superiores a cierto orden de magnitud [@goldberg_what_1991, 6].
+[^4]: El estándar exige que los resultados de la adición, sustracción, multiplicación y división sean redondeados exactamente. Esto significa que el resultado deberá ser calculado exactamente en sus operaciones intermedias y luego redondeado al número de punto flotante más cercano. [@goldberg_what_1991, 18]
 
-Al operar con magnitudes cercanas a los límites del formato, el redondeo puede introducir un error, por lo general mínimo, entre el valor real y el aproximado. Este error de redondeo constituye una característica inherente a la aritmética de punto flotante [@goldberg_what_1991, 7]. Por ello, es crucial estar conscientes de los límites numéricos preestablecidos para los distintos subformatos del estándar *IEEE-754*. Para una discusión más detallada sobre este tema, véase más adelante la sección XXXX.
+Desde su publicación, el estándar ha experimentado varias revisiones importantes, la primera ocurrió entre 2000 y 2008, y la última entre 2015 y 2019; el cambio más visible de la primera revisión (2008) fue la fusión del estándar *IEEE-854* de 1987 con el *IEEE-754-1985* para agregar el formato decimal al tradicional formato binario. Sin embargo, el cambio más importante consistió mover el enfoque desde una especificación de parámetros que era más cercana a la maquinaria computacional, a una especificación que fuera más próxima a las aplicaciones de sistema al tiempo que se preservó la compatibilidad con la versión de 1985 [@hough_ieee_2019, 111]. 
 
-Desde su establecimiento en 1985, el estándar ha experimentado varias revisiones significativas. La primera, en 2008, introdujo la base decimal junto a la tradicional base binaria y reorientó el enfoque de las especificaciones desde la maquinaria computacional hacia las aplicaciones de sistema, preservando la compatibilidad con la versión de 1985 [@hough_ieee_2019, 111]. Una segunda revisión oficial en 2019 actualizó los procedimientos de las operaciones aritméticas para asegurar su exactitud, manteniendo la compatibilidad con la actualización de 2008. La siguiente revisión del estándar está prevista para 2029 [@hough_ieee_2019, 112]
+Por otra parte, la segunda revisión oficial (2019) actualizó los procedimientos de las operaciones aritméticas con el fin de asegurar su exactitud, pero mantuvo la compatibilidad con la actualización de 2008. Se prevé que la siguiente revisión sea publicada en 2029.
 
-##### Los parámetros del estándar *IEEE-754* {#sec-parámetros-ieee-754 .subtitle}
+En esencia, el estándar *IEEE-754* define diversos formatos numéricos basados en estructuras de almacenamiento de *punto flotante*, así como los procedimientos computacionales para que las operaciones aritméticas devuelvan los resultados matemáticos esperados [@muller_handbook_2018, 47]. En especial, el estándar preestablece valores especiales para casos numéricos límite, tales como los infinitos ($\pm\infty$), los valores no normalizados (muy próximos a cero), y las operaciones matemáticas cuyo resultado no está definido ($\nexists$). 
 
-El estándar IEEE-754 contempla dos parámetros que determinan el nombre y las características fundamentales de los formatos de punto flotante. Estos son: i) la base numérica $\beta$ en la que serán almacenados los números reales, y ii) el tamaño de agrupación de memoria $W$ que indicará el número fijo de dígitos destinados al almacenamiento de una cifra real completa. Tan sólo estos parámetros pueden definir por completo a los diferentes *subformatos* de punto flotante existentes [@muller_handbook_2018, 63].
+Tanto las estructuras como las operaciones del estándar son implementadas en las diferentes capas de los sistemas informáticos —desde la maquinaria del equipo hasta las bibliotecas de los lenguajes de programación— y, en conjunto, constituyen una aritmética o entorno de punto flotante [@oracle_oracle_2017, 1].[^5]
 
-En primer término, el estándar *IEEE-754* acepta el uso de dos bases numéricas para almacenar números reales: la binaria y la decimal ($\beta \in \{2,10\}$). Aunque los cálculos en el sistema decimal ($\beta = 10$) sean más familiares para las personas, a nivel interno, los tipos de datos basados en el formato de punto flotante están basados, por lo regular, en el sistema de numeración binario ($\beta = 2$).
+[^5]: Un formato de almacenamiento podrá ser considerado un *formato aritmético* si todas las operaciones obligatorias definidas por el estándar están soportadas en el sistema [@muller_handbook_2018, 47].
 
-Independientemente de la base interna, la representación externa de los tipos de datos se hará, por lo general, en el sistema decimal. Para más información, véase la sección @sec-detalles-representacion. Dado el uso generalizado a nivel interno del formato binario, esta sección sólo se enfocará en describir las características de los formatos binarios de punto flotante, aunque el funcionamiento de las bases decimales puede seguirse a partir de de la comprensión de las bases binarias.
+Dado el interés principal de esta página de ayuda en los tipos de datos numéricos, su contenido se centrará en describir la estructura de los campos y los formatos de almacenamiento del estándar *IEEE-754*, y no abundará en la especificación de los procedimientos computacionales que norman las operaciones aritméticas. Sin embargo, si deseas profundizar en el conocimiento de estas operaciones puedes consultar el libro [*Modern Computer Arithmetic*](https://members.loria.fr/PZimmermann/mca/pub226.html) de @brent_modern_2010.
+
+En este sentido, el estándar *IEEE-754* define a los números de punto flotante como un formato numérico basado en una estructura de datos con una distribución limitada de campos (o *codificación*), similar a la notación científica tradicional, cuyo propósito es la representación de una cifra real completa. A su vez, un número codificado de punto floantante tendrá tres componentes: un signo, un exponente y un significante. Su representación numérica será equivalente la multiplicación con signo del significante y de la base de numeración del formato elevada a la potencia de su exponente [@ieee_ieee_2019, 14]. La denominación de *punto flotante* proviene de la posibilidad de que el punto (o coma) decimal de una cantidad representada pueda moverse a lo largo de los órdenes de magnitud de una cifra [@borgwardt_floating-point_2010].
+
+De manera muy relevante, la reducción de un número infinito de valores reales a un número finito de campos requiere de una representación numérica basada en el redondeo de las cantidades que no puedan ser representadas exactamente [@goldberg_what_1991, 6]. Esta operación de redondeo podrá introducir un error, por lo general mínimo, entre el valor real y el aproximado de algunas operaciones aritméticas. La presencia de un error de redondeo constituye una característica inherente a la aritmética de punto flotante [@goldberg_what_1991, 7]. Por ello, es crucial estar conscientes de los límites numéricos preestablecidos para los distintos subformatos del estándar *IEEE-754*. Para una discusión más detallada sobre este tema, véase la sección [siguiente](#sec-parámetros-ieee-754).
+
+##### Los parámetros del formato de punto flotante del estándar *IEEE-754* {#sec-parámetros-ieee-754 .subtitle}
+
+El estándar IEEE-754 contempla dos parámetros que determinan el nombre y las características fundamentales de los formatos de punto flotante. Estos son: i) la base numérica $\beta$ en la que serán almacenados los números reales, y ii) el tamaño de agrupación de memoria $W$ que indicará el número fijo de dígitos destinados al almacenamiento de una cifra real completa. Tan sólo estos dos parámetros pueden definir por completo a los diferentes *subformatos* de punto flotante existentes [@muller_handbook_2018, 63].
+
+En primer término, el estándar *IEEE-754* acepta el uso de dos bases numéricas para almacenar números reales: la binaria y la decimal ($\beta \in \{2,10\}$). Aunque los cálculos en el sistema decimal ($\beta = 10$) sean más familiares para las personas, a nivel interno los tipos de datos suelen basados por lo regular en el sistema de numeración binario ($\beta = 2$).
+
+Independientemente de la base interna, la representación externa de los tipos de datos se hará, por lo general, en el sistema decimal. Para más información, véase la sección [La representación de los valores *dobles*](#sec-detalles-representacion). Dado el uso generalizado a nivel interno del formato binario, esta sección sólo se enfocará en describir las características de los formatos binarios de punto flotante, aunque el funcionamiento de las bases decimales pueda seguirse a partir de de la comprensión de las bases binarias.
 
 Con respecto al tamaño de agrupación de memoria $W$, el estándar *IEEE-754* define el uso de los valores convencionales de $16$, $32$, $64$ o $128$ dígitos binarios —o sea, de $2$, $4$, $8$ o $16$ *bytes*— para el almacenamiento de una cifra real completa.
 
-El número de dígitos de $W$ nombra a los distintos subformatos de punto flotante. En la actualidad, el estándar *IEEE-754* utiliza las denominaciones *binaria16* (tipo de datos *`"half"`*) para referirse a la precisión media, *binaria32* (tipo de datos *`"single"`* o *`"float"`*) para referirse a la precisión sencilla, *binaria64* (tipo de datos *`"double"`* o *`"numeric"`*) para referirse la precisión doble y *binaria128* (tipo de datos *`"long double"`*) para referirse a la precisión doble extendida.
+El número de dígitos de $W$ nombrará a los distintos subformatos de punto flotante. En la actualidad, el estándar *IEEE-754* utiliza las denominaciones *binaria16* (tipo de datos *`"half"`*) para referirse a la *precisión media*, *binaria32* (tipo de datos *`"single"`* o *`"float"`*) para referirse a la *precisión sencilla*, *binaria64* (tipo de datos *`"double"`* o *`"numeric"`*) para referirse la *precisión doble* y *binaria128* (tipo de datos *`"long double"`*) para referirse a la *precisión doble extendida*.
 
-Dependiendo de la extensión de $W$, —es decir, del tipo de datos— sus dígitos se distribuirán entre tres parámetros con asignaciones predefinidas:
+El número total de valores de punto flotante que un subformato podrá representar es resultado de las combinaciones existentes entre el número de valores que cada dígito puede adoptar de acuerdo a la base ($\beta = 2$) y el número de dígitos totales del formato ($W \in \{16, 32, 64, 128\}$). De este modo, la *precisión media* representará $2^{16}$ valores de punto flotante, la *precisión sencilla* contendrá $2^{32}$ valores; a su vez, la *precisión doble* albergará $2^{64}$ valores y, finalmente, la *precisión doble extendida* contendrá $2^{128}$ valores posibles. En consecuencia, a diferencia de los números reales, el dominio de los números de punto flotante será finito.
+
+Una vez que la extensión de $W$ ha sido definida, sus dígitos se distribuirán en tres parámetros con asignaciones prederminadas:
 
 a.  Un valor $s$ que representa al signo ($\pm$) del número real, el cual se representa con un dígito que puede adoptar los valores $0$ o $1$ para indicar un valor positivo o negativo, respectivamente.
-b.  Un valor $m$ que representa al significante con una precisión $p$ distribuída en $11$, $24$, $53$ o $113$ dígitos. El significante se compone de un dígito binario antes de la marca de separación de fracciones —*i.e.* el punto o la coma— y $p-1$ dígitos binarios después de ésta y deberá expresarse en forma *normalizada*.[^3] Dado que el primer dígito siempre será igual a 1, $m$ sólo se almacena con $p-1$ dígitos.
+b.  Un valor $m$ que representa al significante con una precisión $p$ distribuída en $11$, $24$, $53$ o $113$ dígitos. El significante se compone de un dígito binario antes de la marca de separación de fracciones —*i.e.* el punto o la coma— y $p-1$ dígitos binarios después de ésta y deberá expresarse en forma *normalizada*.[^6] Dado que el primer dígito siempre será igual a 1, $m$ sólo se almacena con $p-1$ dígitos.
 c.  Un exponente entero $e$ distribuído en $5$, $8$, $11$ o $15$ dígitos binarios dentro del rango predefinido por los valores de $e_{min}$ y $e_{max}$.
 
-[^3]: En notación científica tradicional un número se encuentra normalizado si el significante es mayor o igual a uno y menor a la base numérica ($1≤m<\beta$). Por ejemplo, un número en base decimal como $3.14 \times 10^{2}$ se encuentra en forma normalizada, mientras que en la forma $0.314 \times 10^{3}$ no lo estaría ya que el significante tiene un valor menor a uno [@cook_anatomy_2009]. De acuerdo al estándar ISO/IEC-60559:2020, los números de punto flotante en base binaria se deben almacenar en su forma normalizada, lo que significa que el primer dígito del significante $m$ siempre será igual a $1$.
+[^6]: En notación científica tradicional un número se encuentra normalizado si el significante es mayor o igual a uno y menor a la base numérica ($1≤m<\beta$). Por ejemplo, un número en base decimal como $3.14 \times 10^{2}$ se encuentra en forma normalizada, mientras que en la forma $0.314 \times 10^{3}$ no lo estaría ya que el significante tiene un valor menor a uno [@cook_anatomy_2009]. De acuerdo al estándar ISO/IEC-60559:2020, los números de punto flotante en base binaria se deben almacenar en su forma normalizada, lo que significa que el primer dígito del significante $m$ siempre será igual a $1$.
 
 De esta manera, un número de punto flotante $x$ en la base $\beta$ es uno para el cual existe al menos una representación exacta en función de la distribución de $W$-dígitos entre los parámetros $s$, $m$ y $e$ de la forma: $$
 x = (-1)^{s} \cdot m \cdot \beta^e = \pm m_0.m_1m_2...m_{p-1}\times\beta^{e} 
 $$ {#eq-punto-flotante}
 
-La @eq-punto-flotante tiene varias implicaciones. La primera es que el número total de valores de punto flotante que un subformato puede representar es resultado de las combinaciones existentes entre el número de valores que cada dígito puede adoptar de acuerdo a la base ($\beta = 2$) y el número de dígitos totales del formato ($W \in \{16, 32, 64, 128\}$). 
+La @eq-punto-flotante tiene varias implicaciones. La primera es que el signo $s$ ocupará un sólo dígito para cualquier precisión y adoptará el valor $0$ para los números positivos o el valor $1$ para almacenar a los negativos. En consecuencia, al igual que los números reales, el dominio de los números de punto flotante se extenderá a ambos lados de la recta numérica aunque no de manera ilimitada.
 
-De este modo, la precisión *media* representará $2^{16}$ valores de punto flotante, la precisión *simple* contendrá $2^{32}$ valores; a su vez, la precisión *doble* albergará $2^{64}$ valores y, finalmente, la precisión *doble extendida* contendrá $2^{128}$ valores posibles. En consecuencia, a diferencia de los números reales, el dominio de los números de punto flotante es finito.
+Por su parte, el significante $m$ estará compuesto por $p-1$ dígitos y será almacenado solamente con la parte fraccionaria. Además, según la precisión definida para $m$ ($p \in \{11, 24, 53, 113\}$), el significante podrá alojar un rango de $2^{11-1}$, $2^{24-1}$, $2^{53-1}$, o $2^{113-1}$ valores. En consecuencia, a diferencia de los reales, los números de punto flotante no podrán representar valores que tengan una precisión infinita, incluso si se encuentran dentro del rango de valores almacenables.
 
-La primera consiste en que la disponibilidad de los números de punto flotante estará organizada en «ventanas» definidas por el resultado de elevar la base $\beta$ a los valores definidos entre $e_{min}$ y $e_{max}$ [@evans_how_2023, 20]. Así, la primer ventana de valores irá de $\beta^{e_{min}}$ a $\beta^{e_{min}+1}$, la siguiente de $[\beta^{e_{min}+1}, \beta^{e_{min}+2}]$, y así sucesivamente hasta llegar al último rango: $[\beta^{e_{max}-1}, \beta^{e_{max}}]$. Por su parte, el número de ventanas es simplemente resultado de elevar la base $\beta$ al número de dígitos disponibles para el exponente $e$ ($W_e$). 
+Otra implicación importante consiste en que la disponibilidad de los números de punto flotante estará organizada en «ventanas» definidas por el resultado de elevar la base $\beta$ a los valores definidos entre $e_{min}$ y $e_{max}$ [@evans_how_2023, 20]. Así, la primer ventana de valores irá de $\beta^{e_{min}}$ a $\beta^{e_{min}+1}$, la siguiente de $[\beta^{e_{min}+1}, \beta^{e_{min}+2}]$, y así sucesivamente hasta llegar al último rango: $[\beta^{e_{max}-1}, \beta^{e_{max}}]$. Por su parte, el número de ventanas es simplemente resultado de elevar la base $\beta$ al número de dígitos disponibles para el exponente $e$ ($W_e$).
 
-De igual modo, dada una precisión $p$ para $m$, en cada ventana habrá un número $\beta^{p-1}$  de valores disponibles. Ya que en cada ventana se deberán distribuir $\beta^e$ valores entre $\beta^{p-1}$ elementos, el salto entre los números de punto flotante será igual a $\frac{\beta^e}{\beta^{p-1}} = \beta^{e-p-1}$ de ventana a ventana. Por ejemplo, el salto para los valores de tipo *`"double"`*, donde $\beta = 2$ y $p = 53$, será de $2^e-52$ para la ventana $[2^e,2^{e+1}]$. Esto significa que los saltos entre los números de punto flotante en el formato *doble* se duplicarán por cada ventana conforme los valores se aproximen a la última ventana: $[2^{1023}, 2^{1024}]$ [@evans_how_2023, 20].
+De igual modo, dada una precisión $p$ para $m$, en cada ventana habrá un número $\beta^{p-1}$ de valores disponibles. Ya que en cada ventana se deberán distribuir $\beta^e$ valores entre $\beta^{p-1}$ elementos, el salto entre los números de punto flotante será igual a $\frac{\beta^e}{\beta^{p-1}} = \beta^{e-p-1}$ de ventana a ventana. Por ejemplo, para un valor $n$ del exponente $e$, el salto para los valores de tipo *`"double"`*, donde $\beta = 2$, $e_{min} \leq n \leq e_{max}$ y $p = 53$, será de $2^n-52$ para la ventana $[2^n,2^{n+1}]$. Esto significa que los saltos entre los números de punto flotante en el formato *doble* se duplicarán por cada ventana conforme los valores se aproximen al valor de $e_{max}$ [@evans_how_2023, 20].
 
-En términos de las propiedades de los reales, se puede afirmar que entre un número de punto flotante $x$ y otro número de punto floante $y$ **no** siempre existirá otro número de punto flotante $z$. En consecuencia, a diferencia de los reales, la densidad de los números de punto flotante es discreta y será menor conforme las *ventanas* se alejen del cero. 
+Por ello, se puede afirmar que entre un número de punto flotante $x$ y otro número de punto floante $y$ **no** existirá siempre otro número de punto flotante $z$. En consecuencia, a diferencia de los reales, la densidad de los números de punto flotante es discreta y será menor conforme los valores se alejen del cero.
 
-En primer término, el signo $s$ ocupará un sólo dígito para cualquier precisión (*sencilla*, *doble*, *cuádruple*), y adoptará el valor cero para los números positivos o el valor uno para almacenar a los negativos.
-
-Por su parte, el significante $m$ estará compuesto por $p-1$ dígitos. Esto responde a que el significante siempre es almacenado de forma normalizada ($1≤m<\beta$), lo cual implica que el primer dígito siempre será igual a uno. Si el primer dígito siempre es el mismo, entonces no habrá necesidad de considerarlo y el significante $m$ sólo estará compuesto por la parte fraccionaria de cualquier número de punto flotante [@cook_anatomy_2009]. De este modo, las precisiones efectivas del significante $m$ correspondientes a los formatos *sencillo* (*binario32*), *doble* (*binario64)* y *cuádruple* (*binario128*) serán de $24-1$, $53-1$ o $112-1$ bits.
-
-El tercer parámetro fundamental de un número de punto flotante es el exponente $e$, que solamente podrá adoptar valores enteros. Dependiendo de la precisión utilizada, el exponente podrá tener un tamaño de agrupación ( $W_{E}$) de $8$, $11$ o $15$ dígitos binarios, correspondientes a los formatos de precisión *sencillla*, *doble* y *cuádruple*, respectivamente. En el primer caso, la precisión sencilla podrá alojar un rango de $256$ ($2^{8}$) valores en el exponente, mientras que la precisión doble almacenará $2\,048$ ($2^{11}$) y la cuádruple alcanzará los $32\,768$ ($2^{15}$) valores.
-
-El exponente $e$ se almacena con un sesgo $b$. Es decir, aunque los valores del exponente se representan como positivos o negativos para la usuaria, en realidad son almacenados siempre con un valor positivo. Para conocer el valor con el cual es almacenado el exponente, deberá sumarse el sesgo $b$ al valor representado de $e$. El sesgo $b$ es equivalente al valor máximo representable del exponente ($e_{max}$), que a su vez es igual al resultado de restar una unidad al resultado de elevar la base ($\beta=2$) al valor del tamaño de agrupación del exponente ( $W_{E}$ ) menos uno:
+Según el tamaño de agrupación de e ($W_{e} \in  \{5, 8, 11, 15\}$), los diferentes subformatos del estándar podrán alojar un rango de $2^{5}$, $2^{8}$, $2^{11}$, o $2^{15}$ valores para el exponente. Aunque los valores de $e$ se puedan representar con valores positivos o negativos, a nivel interno sólo son almacenados los valores positivos. Para conocer el valor representado de $e$, deberá restarse un sesgo $b$ al valor almacenado. El sesgo $b$ es equivalente a restar una unidad al valor resultante de elevar la base ($\beta=2$) al tamaño de agrupación del exponente $W_{e}$ menos uno:
 
 $$
-b=e_{max}=2^{{W_{E}}-1}-1
-$$
+b=\beta^{{W_{E}}-1}-1
+$$ {#eq-sesgo-b}
 
-De acuerdo con la fórmula anterior, el sesgo para la *precisión sencilla* será igual a $127$, mientras que para la precisión doble será igual a $1023$ y, finalmente, para la precisión cuádruple adoptará el valor de $16\,383$. Por otro lado, el valor mínimo representable del exponente ($e_{min}$) se define como la resta del valor del exponente máximo al valor uno: $e_{min}=1-e_{max}$. De acuerdo con esta fórmula, el valor mínimo del exponente para la *precisión sencilla* será igual a $-126$, mientras que para la precisión *doble* será igual a $-1022$ y, finalmente, para la precisión *cuádruple* adoptará el valor de $-16\,382$.
+De acuerdo con @eq-sesgo-b, los sesgos de $e$ correspondientes a las cuatro precisiones del estándar serán $b \in \{15, 127, 1023, 16\,383\}$.
+
+De manera análoga, el valor mínimo representable del exponente ($e_{min}$) se define como la resta del valor del exponente máximo al valor uno:
+
+$$
+e_{min}=1-e_{max} 
+$$ {#eq-val-min}
+
+De acuerdo con esta fórmula, el valor mínimo del exponente para la *precisión sencilla* será igual a $-126$, mientras que para la precisión *doble* será igual a $-1022$ y, finalmente, para la precisión *cuádruple* adoptará el valor de $-16\,382$.
 
 En la @tbl-params se puede observar un resumen de la especificación de precisiones y exponentes correspondiente a cada formato.
 
 \small
 
-| Parámetro | *binaria32* | *binaria64* | *binaria128* |
-|----|---:|---:|---:|
-| Valor de $\beta$ | 2 | 2 | 2 |
-| Número de dígitos de $W$ | $32$ | $64$ | $128$ |
-| Número de dígitos de $s$ ($W_{S}$) | $1$ | $1$ | $1$ |
-| Precisión definida de $m$ ( $p$ ) | $24$ | $53$ | $113$ |
-| Número de dígitos efectivos de $m$ ($W_{M}$) | $23$ | $52$ | $112$ |
-| Número de dígitos de $e$ ($W_{E}$) | $8$ | $11$ | $15$ |
++----------------------------------------+-------------------+--------------------+-------------------+-----------------------------+
+| Parámetro / Subformato                 | Precisisión media | Precisión sencilla | *Precisión doble* | *Precisión doble extendida* |
++========================================+==================:+===================:+==================:+============================:+
+| Agrupación de memoria ($W$)            | $16$              | $32$               | $64$              | $128$                       |
++----------------------------------------+-------------------+--------------------+-------------------+-----------------------------+
+| Agrupación de memoria de $s$ ($W_{s}$) | $1$               | $1$                | $1$               | $1$                         |
++----------------------------------------+-------------------+--------------------+-------------------+-----------------------------+
+| Precisión definida de $m$ ( $p$ )      | $11$              | $24$               | $53$              | $113$                       |
++----------------------------------------+-------------------+--------------------+-------------------+-----------------------------+
+| Precisión efectiva de $m$ ($p-1$)      | $10$              | $23$               | $52$              | $112$                       |
++----------------------------------------+-------------------+--------------------+-------------------+-----------------------------+
+| Agrupación de memoria de $e$ ($W_{e}$) | $5$               | $8$                | $11$              | $15$                        |
++----------------------------------------+-------------------+--------------------+-------------------+-----------------------------+
 
-: Distribución de los dígitos de $W$ entre los parámetros de los diversos formatos binarios de punto flotante de acuerdo al estándar ISO/IEC 60559. {#tbl-params} {tbl-colwidths="\[24,19,19,19,19\]"}
+: Distribución de los dígitos de $W$ entre los parámetros de los diversos formatos binarios ($\beta = 2$) de punto flotante de acuerdo al estándar *IEEE-754*. {#tbl-params} {tbl-colwidths="\[24,18,18,16,18\]"}
 
 \normalsize
 
